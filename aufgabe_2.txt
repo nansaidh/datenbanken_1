@@ -1,0 +1,35 @@
+--2.1
+SELECT auftrnr, datum FROM auftrag WHERE kundnr IN
+(SELECT nr FROM kunde WHERE nr IN 1);
+
+
+--2.2
+SELECT auftrnr, datum FROM auftrag WHERE kundnr = SOME
+(SELECT nr FROM kunde WHERE nr = SOME 1);
+
+
+--2.3
+SELECT auftrnr, datum FROM auftrag WHERE EXISTS
+(SELECT nr FROM kunde WHERE auftrag.kundnr = 1);
+
+
+--2.4
+SELECT kundnr, COUNT (auftrnr) AS anzahl, 
+        MIN(datum) AS von, MAX(datum) AS bis FROM auftrag GROUP BY kundnr ORDER BY kundnr;
+
+
+--2.5
+SELECT kundnr, COUNT (auftrnr) AS anzahl, 
+        MIN(datum) AS von, MAX(datum) AS bis FROM auftrag WHERE kundnr IN (3, 6) GROUP BY kundnr ORDER BY kundnr;
+
+
+--2.6
+SELECT k.nr, k.name, a.auftrnr FROM kunde k JOIN auftrag a ON a.kundnr = k.nr;
+
+
+--2.7
+SELECT k.nr, k.name, a.auftrnr, p.name FROM auftrag a 
+        JOIN kunde k ON k.nr = a.kundnr
+        JOIN personal p ON p.persnr = a.persnr;
+
+

@@ -1,0 +1,9 @@
+--3.0
+@set autocommit off;
+
+SELECT COUNT(*) FROM lieferung;
+SAVEPOINT save;
+DELETE FROM lieferant;
+SELECT COUNT(*) FROM lieferung;
+ROLLBACK TO save;
+SELECT COUNT(*) FROM lieferung;

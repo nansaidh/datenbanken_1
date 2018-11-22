@@ -1,0 +1,49 @@
+--1.1
+SELECT * FROM teilestamm;
+
+
+--1.2
+--SELECT * FROM teilestamm WHERE BEZEICHNUNG LIKE '%City%';
+SELECT * FROM teilestamm WHERE REGEXP_LIKE(BEZEICHNUNG, 'city', 'i'); --i case insensitive
+
+
+--1.3
+SELECT COUNT(*) FROM kunde;
+SELECT COUNT(*) FROM personal;
+SELECT COUNT (*) FROM teilestamm;
+
+
+--1.4
+SELECT MIN(DATUM) AS von, MAX(DATUM) AS bis FROM auftrag;
+
+
+--1.5
+SELECT name FROM personal WHERE persnr =
+        (SELECT persnr FROM auftrag WHERE auftrnr = 2);
+        
+SELECT name FROM kunde WHERE nr =
+        (SELECT kundnr FROM auftrag WHERE auftrnr = 2);
+        
+SELECT name FROM personal WHERE persnr =
+        (SELECT vorgesetzt FROM personal WHERE persnr = 
+                (SELECT auftrag.persnr FROM auftrag WHERE auftrnr = 2));
+                
+
+--1.6
+SELECT * FROM lager WHERE bestand > 0 ORDER BY bestand;
+
+
+--1.7
+SELECT DISTINCT * FROM lieferung ORDER BY teilnr DESC;
+
+
+--1.8
+SELECT teilnr AS Teilenummer, bezeichnung, preis AS Bruttopreis FROM teilestamm
+        WHERE preis > 30.0;
+
+
+--1.9
+SELECT einzelteilnr AS Teilenummer FROM teilestruktur WHERE oberteilnr = 300001 AND anzahl > 100;
+        
+        
+
